@@ -1,5 +1,10 @@
+const queryString = window.location.search;
+
 (function () {
-  var file = file || "README.md";
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const blog_name = urlParams.get('blogs')
+  var file = file || blog_name;
   var reader = new stmd.DocParser();
   var writer = new stmd.HtmlRenderer();
   var xhr = new XMLHttpRequest();
@@ -12,7 +17,7 @@
   function display(xhr) {
     var parsed = reader.parse(xhr.responseText);
     var content = writer.renderBlock(parsed);
-    document.getElementsByTagName('body')[0].innerHTML = content;
+    document.getElementsByTagName('mdtag')[0].innerHTML = content;
     
     /* try to extract h1 title and use as title for page
        if no h1, use name of file 
